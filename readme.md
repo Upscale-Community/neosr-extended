@@ -54,6 +54,26 @@ Please read the wiki [Configuration Walkthrough](https://github.com/muslll/neosr
 | [DCTLSA](https://github.com/zengkun301/DCTLSA)						                            | `dctlsa`						                    |
 | [SPAN](https://github.com/hongyuanyu/SPAN)							                            | `span`						                    |
 
+
+### Arch Inference times with provided testscript, rtx 3060 (30.Nov 23)
+
+| type                  | fps|
+|-----------------------|---:|
+| `compact`             |1.37|
+| `span`                |0.92|
+| `ditn`                |0.76|
+| `omnisr`              |0.54|
+| `swinir_small`        |0.49|
+| `srformer_light`      |0.43|
+| `dctlsa`              |0.35|
+| `dat_light`           |0.35|
+| `esrgan`              |0.18|
+| `swinir_medium`       |0.13|
+| `dat_small`           |0.08|
+| `dat_2`               |0.08|
+| `dat_medium`          |0.07|
+
+
 ### Supported Discriminators:
 
 | net                               				  | option 		        |
