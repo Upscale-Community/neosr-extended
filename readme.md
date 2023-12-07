@@ -55,7 +55,7 @@ Please read the wiki [Configuration Walkthrough](https://github.com/muslll/neosr
 | [SPAN](https://github.com/hongyuanyu/SPAN)							                            | `span`						                    |
 
 
-### Arch Inference times with provided testscript, rtx 3060 (30.Nov 23)
+### Arch Inference times with provided testscript, rtx 3060
 
 | type                  | fps|
 |-----------------------|---:|
