@@ -38,7 +38,7 @@ Please read the wiki [Configuration Walkthrough](https://github.com/muslll/neosr
 
 ## features
 
-### Supported archs:
+### Currently included archs:
 
 | arch                                                                                              | option                                 		    |
 |---------------------------------------------------------------------------------------------------|---------------------------------------------------|
@@ -53,6 +53,12 @@ Please read the wiki [Configuration Walkthrough](https://github.com/muslll/neosr
 | [DITN](https://github.com/yongliuy/DITN)							                                | `ditn`				     	      	            |
 | [DCTLSA](https://github.com/zengkun301/DCTLSA)						                            | `dctlsa`						                    |
 | [SPAN](https://github.com/hongyuanyu/SPAN)							                            | `span`						                    |
+| [NLSAN](https://github.com/zengkun301/NLSAN)    				                                    | `nlsan_medium`, `nlsan_light`                     |
+| [DWT](https://github.com/soobin419/DWT)         				                                    | `dwt`			                                    |
+| [EDAT](https://github.com/soobin419/EDAT)       				                                    | `edat`, `edat_light`	                            |
+| [CRAFT](https://github.com/AVC2-UESTC/CRAFT-SR) 				                                    | `craft`			                                |
+| [Bicubic++](https://github.com/aselsan-research-imaging-team/bicubic-plusplus)                    | `bpp`, `bpp_l`		                            |
+| [Real-CUGAN](https://github.com/bilibili/ailab)				                                    | `cugan`			                                |
 
 
 ### Arch Inference times with provided testscript, rtx 3060
@@ -76,18 +82,6 @@ Please read the wiki [Configuration Walkthrough](https://github.com/muslll/neosr
 | `dat_small`           |0.08|
 | `dat_2`               |0.08|
 | `dat_medium`          |0.07|
-
-
-#### Under Testing
-
-| arch                         						          | option             		   |
-|---------------------------------------------------------------------------------|--------------------------------|
-| [NLSAN](https://github.com/zengkun301/NLSAN)    				  | `nlsan_medium`, `nlsan_light`  |
-| [DWT](https://github.com/soobin419/DWT)         				  | `dwt`			   |
-| [EDAT](https://github.com/soobin419/EDAT)       				  | `edat`, `edat_light`	   |
-| [CRAFT](https://github.com/AVC2-UESTC/CRAFT-SR) 				  | `craft`			   |
-| [Bicubic++](https://github.com/aselsan-research-imaging-team/bicubic-plusplus)  | `bpp`, `bpp_l`		   |
-
 
 ### Supported Discriminators:
 

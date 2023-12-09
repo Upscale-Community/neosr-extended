@@ -26,3 +26,4 @@
 | [`EDAT`](https://github.com/soobin419/EDAT)							      | [Apache 2.0](https://github.com/soobin419/EDAT/blob/main/LICENSE)		      			|
 | [`CRAFT`](https://github.com/AVC2-UESTC/CRAFT-SR)						      | [Apache 2.0](https://github.com/AVC2-UESTC/CRAFT-SR/blob/main/LICENSE.txt)	      			|
 | [`Bicubic++`](https://github.com/aselsan-research-imaging-team/bicubic-plusplus)		      | [CC BY-NC-SA 4.0](https://github.com/aselsan-research-imaging-team/bicubic-plusplus/blob/main/LICENSE)  |
+| [`Real-CUGAN`](https://github.com/bilibili/ailab)						      | Unknown													|
