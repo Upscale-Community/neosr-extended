@@ -1,4 +1,3 @@
-from pathlib import Path
 
 import math
 import functools
@@ -8,19 +7,13 @@ import torch.nn as nn
 from . import block as B
 
 from neosr.utils.registry import ARCH_REGISTRY
-from neosr.utils.options import parse_options
+from .arch_util import default_init_weights, make_layer, pixel_unshuffle, net_opt
 
-
-# initialize options parsing
-root_path = Path(__file__).parents[2]
-opt, args = parse_options(root_path, is_train=True)
-# set scale factor in network parameters
-scale = opt['scale']
-
+upscale, training = net_opt()
 
 @ARCH_REGISTRY.register()
 class old_esrgan(nn.Module):
-    def __init__(self, in_nc=3, out_nc=3, nf=64, nb=24, nr=3, gc=32, upscale=scale, norm_type=None,
+    def __init__(self, in_nc=3, out_nc=3, nf=64, nb=24, nr=3, gc=32, upscale=upscale, norm_type=None,
                 act_type='leakyrelu', mode='CNA', upsample_mode='upconv', convtype='Conv2D',
                 finalact=None, gaussian_noise=False, plus=False, **kwargs):
         super(old_esrgan, self).__init__()
