@@ -1,12 +1,36 @@
 import collections.abc
 import math
 import warnings
-import torch
 from itertools import repeat
+from pathlib import Path
+
+import torch
 from torch import nn
 from torch.nn import init
 from torch.nn.modules.batchnorm import _BatchNorm
 
+from neosr.utils.options import parse_options
+
+
+def net_opt():
+    # initialize options parsing
+    root_path = Path(__file__).parents[2]
+    opt, args = parse_options(root_path, is_train=True)
+
+    # set variable for scale factor and training phase
+    # conditions needed due to convert.py
+
+    if args.input is None:
+        upscale = opt['scale']
+        if 'train' in opt['datasets']:
+            training = True
+        else:
+            training = False
+    else:
+        upscale = args.scale
+        training = False
+
+    return upscale, training
 
 @torch.no_grad()
 def default_init_weights(module_list, scale=1, bias_fill=0, **kwargs):
@@ -134,7 +158,7 @@ def _no_grad_trunc_normal_(tensor, mean, std, a, b):
         return tensor
 
 
-def drop_path(x, drop_prob: float = 0., training: bool = False):
+def drop_path(x, drop_prob: float = 0., training: bool = False, scale_by_keep: bool = True):
     """Drop paths (Stochastic Depth) per sample (when applied in main path of residual blocks).
 
     From: https://github.com/rwightman/pytorch-image-models/blob/master/timm/models/layers/drop.py
@@ -144,11 +168,20 @@ def drop_path(x, drop_prob: float = 0., training: bool = False):
     keep_prob = 1 - drop_prob
     # work with diff dim tensors, not just 2D ConvNets
     shape = (x.shape[0], ) + (1, ) * (x.ndim - 1)
+
+    '''
+    # old implementation
     random_tensor = keep_prob + \
         torch.rand(shape, dtype=x.dtype, device=x.device)
     random_tensor.floor_()  # binarize
     output = x.div(keep_prob) * random_tensor
-    return output
+    '''
+
+    random_tensor = x.new_empty(shape).bernoulli_(keep_prob)
+    if keep_prob > 0.0 and scale_by_keep:
+        random_tensor.div_(keep_prob)
+
+    return x * random_tensor
 
 
 class DropPath(nn.Module):
@@ -157,12 +190,13 @@ class DropPath(nn.Module):
     From: https://github.com/rwightman/pytorch-image-models/blob/master/timm/models/layers/drop.py
     """
 
-    def __init__(self, drop_prob=None):
+    def __init__(self, drop_prob: float = 0., scale_by_keep: bool = True):
         super(DropPath, self).__init__()
         self.drop_prob = drop_prob
+        self.scale_by_keep = scale_by_keep
 
     def forward(self, x):
-        return drop_path(x, self.drop_prob, self.training)
+        return drop_path(x, self.drop_prob, self.training, self.scale_by_keep)
 
 
 # From PyTorch

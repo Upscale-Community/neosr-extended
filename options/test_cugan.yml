@@ -1,5 +1,5 @@
 # Results will be saved to neosr/experiments/results/
-name: test_bpp
+name: test_cugan
 model_type: default
 scale: 4
 num_gpu: 1
@@ -15,8 +15,7 @@ datasets:
       type: disk
 
 network_g:
-  type: bpp
-  #type: bpp_l
+  type: cugan
 
 path:
   pretrain_network_g: 'model.pth'

@@ -1,19 +1,12 @@
 
-from pathlib import Path
-
 import torch
 from torch import nn as nn
 from torch.nn import functional as F
 
 from neosr.utils.registry import ARCH_REGISTRY
-from neosr.utils.options import parse_options
+from .arch_util import net_opt
 
-
-# initialize options parsing
-root_path = Path(__file__).parents[2]
-opt, args = parse_options(root_path, is_train=True)
-# set scale factor in network parameters
-upscale = opt['scale']
+upscale, training = net_opt()
 
 
 class SEBlock(nn.Module):
@@ -265,8 +258,6 @@ class cugan(nn.Module):
         super(cugan, self).__init__()
         self.scale = scale
         self.pro_mode = pro_mode
-        self.ps = nn.PixelShuffle(2)
-        self.conv_final = nn.Conv2d(64, 12, 3, 1, padding=0, bias=True)
 
         if self.scale == 1:
             raise ValueError(f'1x scale ratio is unsupported. Please use 2x, 3x or 4x.')
@@ -280,6 +271,8 @@ class cugan(nn.Module):
             self.unet2 = UNet2(in_channels, out_channels, deconv=False)
 
         if self.scale == 4:
+            self.ps = nn.PixelShuffle(2)
+            self.conv_final = nn.Conv2d(64, 12, 3, 1, padding=0, bias=True)
             self.unet1 = UNet1(in_channels, 64, deconv=True)
             self.unet2 = UNet2(64, 64, deconv=False)
 

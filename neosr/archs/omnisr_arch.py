@@ -1,4 +1,3 @@
-# Code adapted from: https://github.com/Francis0625/Omni-SR
 
 import math
 
@@ -11,6 +10,9 @@ from einops import rearrange
 from einops.layers.torch import Rearrange, Reduce
 
 from ..utils.registry import ARCH_REGISTRY
+from .arch_util import net_opt
+
+upscale, training = net_opt()
 
 
 class CA_layer(nn.Module):
@@ -487,6 +489,7 @@ class Dropsample(nn.Module):
     def forward(self, x):
         device = x.device
 
+        self.training = training
         if self.prob == 0. or (not self.training):
             return x
 
@@ -811,10 +814,6 @@ class OSAG(nn.Module):
         ffn_bias    = kwargs.get("ffn_bias", False)
         window_size = kwargs.get("window_size", 0)
         pe          = kwargs.get("pe", False)
-
-        print("window_size: %d"%(window_size))
-        print('with_pe', pe)
-        print("ffn_bias: %d"%(ffn_bias))
 
         group_list = []
         for _ in range(block_num):
