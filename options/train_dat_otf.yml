@@ -87,7 +87,8 @@ path:
   resume_state: ~
 
 network_g:
-  type: dat_small
+  type: dat_light
+  #type: dat_small
   #type: dat_medium
   #type: dat_2
 
