@@ -863,6 +863,20 @@ class dat(nn.Module):
         x = x / self.img_range + self.mean
         return x
 
+@ARCH_REGISTRY.register()
+def dat_light(**kwargs):
+    return dat(
+            in_chans=3,
+            img_range=1.,
+            depth=[18],
+            embed_dim=60,
+            num_heads=[6],
+            expansion_factor=2,
+            resi_connection='3conv',
+            split_size=[8,32],
+            upsampler='pixelshuffledirect',
+            **kwargs
+            )
 
 @ARCH_REGISTRY.register()
 def dat_small(**kwargs):
